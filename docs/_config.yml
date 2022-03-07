@@ -25,7 +25,7 @@ url: https://andydo1998.github.io # the base hostname & protocol for your site, 
 
 
 # Build settings
-theme: minima
+theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
 
