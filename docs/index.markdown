@@ -117,3 +117,23 @@ Since the previous LSTM only had 2 input columns with our dataset, our next goal
 </p>
 
 With our new encoding, we were ready to run the model and see our results. Unfortunately, we had to change much of our previous code on how we ran the model and graphed it, as it was catered to our 2 feature dataset. This took more time than expected, so most default hyperparameters were used, with the loss function being mean squared error and the optimizer being Adam. The only change we made to the hyperparameters was changing epochs to 400, as this model took longer for the loss to converge.
+
+<p align="center">
+    <img src="images/image10.png" alt="image10" />
+</p>
+
+As you can see here, our new inputs did not perform as we wanted it to, and actually resulted in a worse accuracy than our previous model. This one ended with an accuracy of 33%, which was 67% lower than our previous model. Despite our best attempts, this was the end result of our last modification given our allotted time. However, we were not discouraged by this result, as visually, you can see how this model tried harder to capture peaks and prevent overestimating. Many more ideas were thought of to improve our model and finally reach our end goal in the near future.
+
+### Discussion
+
+**Limitations**
+During the initial state of data collection, we ran into multiple obstacles that we had to overcome. First of all, we did not perfect our other input library (Desktop Mapper) for it to collect other metrics in relation to the foreground window. Before starting the data collection period, we only ended up with just using one input library to record the foreground window executable and its use time. To make matters worse, we only had one laptop to record data off of, which required the user to be constantly be using this machine, thus hindering the amount of data we have. Instead of crippling ourselves and using only those metrics for our model, we expanded upon it and added more features for the model to be trained on. ON_BREAK is an example of a feature we added that was not part of the data collection process. We insisted on adding this to explain the big spikes in our data, in which it definitely improved our results. We also tried modifying the dataset in a way that resulted in multiple features, as seen in our last optimization which included 25 columns instead of the original 2.
+
+Our biggest struggle was with coding in the language of C. Our group was not comfortable coding in C, as all of us were only accustomed to mainly doing things in Python. However, we took a different perspective on this, and saw it as a challenge we had to overcome. We saw this as an opportunity to get better at coding in C, and to also learn the intricacies of the language since this was opted over Python. C had to be utilized in such a way that while collecting data, the user was unobstructed and that their privacy was not at risk. Because of these two factors, we were limited on how much of the user’s data we could access. Using resources such as SUR and ESRV documentation, we managed to create a data collector with the use of C and Intel libraries, while keeping in mind the memory usage and privacy.
+
+
+**Future Plans**
+Despite so much progress on this project, there is actually much more that we can do to finally reach our end goal of predicting a user’s next open app and preloading it in the background. First of all, we can add more features to our data collector by creating and finishing up more input libraries. With this new information, we can feed more information to our model, thus resulting in more features and potentially better predictions. Once we get the model to a point we are comfortable with, the LSTM can be expanded upon just predicting just one app, and predict use time for multiple apps in the same timeframe. This can lead us into also predicting the next app opened, which is essential to what our original goal is, to preload apps. And finally, we can get to the point where we actually preload the app and improve the user’s experience on their machine.
+
+**Conclusion**
+To conclude, we were able to construct a data collector using the Intel® System Usage Report and our own input libraries to collect the foreground data of a user’s machine without slowdown. With this data, a LSTM model was created and used to predict the use time of the app Google Chrome with moderate accuracy. Our goal of predicting the next application that would be used was not reached, but upon expanding on this model and its features, this could be worked up to.
