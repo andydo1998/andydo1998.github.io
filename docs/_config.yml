@@ -20,14 +20,12 @@
 
 title: title
 domain: andydo1998.github.io
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/dsc180_capstone_project_website" # the subpath of your site, e.g. /blog
 url: https://andydo1998.github.io # the base hostname & protocol for your site, e.g. http://example.com
 
 
 # Build settings
 theme: jekyll-theme-cayman
-plugins:
-  - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
