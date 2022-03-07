@@ -99,3 +99,21 @@ A high accuracy was achieved with our LSTM (specifically 96%) but after further 
 Before making any major changes to our model, specifically the encoding of our data, we opted to look at our accuracy metric and adjust the hyperparameters of our model. After looking into how our model dealt with accuracy, we discovered that our model was overestimating in order to achieve a high score in that category. This was not what we wanted as an indicator as to how good our model was doing, as estimating an exact use time in our use case would be extremely hard. Instead, we opted to create our own accuracy metric, which instead would use a range instead of an exact value. True would only be returned, given that the predicted value landed in a range relative to the actual value. The default range was ± .5 * the actual value, but this was easily adjustable from the parameters of the function. We also noticed that some models would predict very small values for 0 that would vary every time the model was re-trained. From a human eye it was clear these functioned as 0’s as they would be consistent with the zeroes in our data. To make sure our accuracy metric captured this, the outputs would be subtracted by that model’s zero value.
 
 Next, we looked into the hyperparameters of the model and tinkered with them until we got a result that we were satisfied with. One hyperparameter was focused at a time, with each one being manually changed to achieve best performance. We adjusted one hyperparameter until it could not get any better, then moved on to the next one. Our edited hyperparameters were with 5 layers, a batch size of 2, and a lookback value of 3. We then incorporated a new method when dealing with the last two hyperparameters, the loss function and optimizer. Since these two hyperparameters had a finite amount of choices, we ran them in a nested for loop to see which combination of the two gave us the best choice. 56 models were run, and the results of 5 are listed in the table below.
+
+<p align="center">
+    <img src="images/image12.png" alt="image12" />
+</p>
+
+As you can see, the results varied a lot and we couldn’t tell which of the models did the best. We first took a look at the combinations with a 96% or higher accuracy calculated using the model’s function. Despite their accuracy being good, we were still skeptical of the high values and started looking at them through our own accuracy metric. Even with this new perspective, results still varied and there was still a lot of overestimation. Our next step was to review these models visually, and the best one to us was the one with the logcosh loss function and the NAdam optimizer. Not only did it boast a 90% accuracy with our own function, this model actually tried to capture some of the peaks within our dataset, and did not fall back to overestimating the predictions. This was our best model yet, and it resembled the dataset even more than the previous one did. We still wanted to further optimize this model, and turned to changing the encoding of our dataset.
+
+<p align="center">
+    <img src="images/image5.png" alt="image5" />
+</p>
+
+Since the previous LSTM only had 2 input columns with our dataset, our next goal was to add more features for the model to use. Instead of having just 2 features, we revised it to have 24, which represented the seconds used in an hour of the day. We had an additional 25th label column which showed the total seconds Google Chrome was used in a 24 hour instance. For our rows, each one represented a day in which data was recorded. In total, we had 61 rows worth of data, and 24 columns as inputs.
+
+<p align="center">
+    <img src="images/image7.png" alt="image7" />
+</p>
+
+With our new encoding, we were ready to run the model and see our results. Unfortunately, we had to change much of our previous code on how we ran the model and graphed it, as it was catered to our 2 feature dataset. This took more time than expected, so most default hyperparameters were used, with the loss function being mean squared error and the optimizer being Adam. The only change we made to the hyperparameters was changing epochs to 400, as this model took longer for the loss to converge.
